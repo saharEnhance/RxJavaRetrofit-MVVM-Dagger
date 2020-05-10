@@ -19,16 +19,19 @@ import com.example.w1d3_rxjavademo.network.model.Ticket
 import com.example.w1d3_rxjavademo.viewmodel.TicketViewModel
 import com.example.w1d3_rxjavademo.viewmodel.TicketViewModelFactory
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var viewModelFactory: TicketViewModelFactory
     lateinit var viewModel: TicketViewModel
+
     lateinit var mAdapter: TicketsAdapter
-    val injection = Injection()
+    //val injection = Injection()
     private val from = "DEL"
     private val to = "HYD"
-
     // CompositeDisposable is used to dispose the subscriptions in onDestroy() method.
     private val disposable = CompositeDisposable()
     private var ticketsList: MutableList<Ticket> = mutableListOf()
@@ -38,15 +41,19 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.title = "$from > $to"
+        (application as TicketApplication).appComponent.inject(this)
+
+        viewModel = viewModelFactory.create(TicketViewModel::class.java)
 
 
-        viewModel = ViewModelProvider(
+        /*viewModel = ViewModelProvider(
             this,
             TicketViewModelFactory(injection.provideUserRepo())
-        ).get(TicketViewModel::class.java)
+        ).get(TicketViewModel::class.java)*/
 
         viewModel.stateLiveData.observe(this, Observer { appState ->
             when (appState) {

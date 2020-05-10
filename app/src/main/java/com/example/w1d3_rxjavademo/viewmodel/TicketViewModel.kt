@@ -12,8 +12,9 @@ import io.reactivex.disposables.CompositeDisposable
 import rx.Notification
 import java.net.UnknownHostException
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class TicketViewModel constructor(private val ticketRepository: TicketRepository) : ViewModel() {
+class TicketViewModel @Inject constructor(private val ticketRepository: TicketRepository) : ViewModel() {
 
     private val disposable = CompositeDisposable()
     private val stateMutableLiveData = MutableLiveData<AppState>()
