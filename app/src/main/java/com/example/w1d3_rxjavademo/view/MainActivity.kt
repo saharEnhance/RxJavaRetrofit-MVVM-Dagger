@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: TicketViewModelFactory
+    @Inject
     lateinit var viewModel: TicketViewModel
 
     lateinit var mAdapter: TicketsAdapter
@@ -45,9 +46,11 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.title = "$from > $to"
-        (application as TicketApplication).appComponent.inject(this)
 
-        viewModel = viewModelFactory.create(TicketViewModel::class.java)
+        (application as TicketApplication).appComponent.inject(this)
+      //  TicketApplication.component.inject(this)
+
+      viewModel = viewModelFactory.create(TicketViewModel::class.java)
 
 
         /*viewModel = ViewModelProvider(

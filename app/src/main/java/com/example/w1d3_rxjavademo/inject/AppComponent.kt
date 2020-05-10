@@ -9,7 +9,7 @@ import javax.inject.Singleton
 @Component(modules=[RepositoryModule::class, RestModule::class, ViewModelModule::class,ApplicationModule::class])
 interface AppComponent {
 
-   fun inject(activity: MainActivity)
+   fun inject(mainActivity: MainActivity)
 
     //fun ticketRepositoryImpl(): TicketRepositoryImpl
 

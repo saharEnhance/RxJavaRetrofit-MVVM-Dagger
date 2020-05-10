@@ -13,12 +13,9 @@ class TicketApplication:Application() {
         initializeComponent()
     }
 
-    /***
-     * We have to make some changes to MyApplication to allow MyTestApplication to
-     * create its own Dagger Component.
-     */
     open fun initializeComponent(): AppComponent {
-        return DaggerAppComponent.builder()
+        return
+        DaggerAppComponent.builder()
             .applicationModule(ApplicationModule(this))
             .repositoryModule(RepositoryModule())
             .restModule(RestModule())
@@ -26,5 +23,26 @@ class TicketApplication:Application() {
             .build()
 
     }
+
+/*
+    override fun onCreate() {
+        super.onCreate()
+        //todo init dagger graph
+        component =  DaggerAppComponent.builder()
+            .applicationModule(ApplicationModule(this))
+            .repositoryModule(RepositoryModule())
+            .restModule(RestModule())
+            .viewModelModule(ViewModelModule())
+            .build()
+    }
+    companion object {
+        lateinit var component: TicketApplication
+    }
+
+*/
+
+
+
+
 
 }
