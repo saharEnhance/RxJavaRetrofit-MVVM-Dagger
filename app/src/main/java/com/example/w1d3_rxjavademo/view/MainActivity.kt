@@ -8,17 +8,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.w1d3_rxjavademo.R
-import com.example.w1d3_rxjavademo.inject.Injection
 import com.example.w1d3_rxjavademo.network.model.Price
 import com.example.w1d3_rxjavademo.network.model.Ticket
 import com.example.w1d3_rxjavademo.viewmodel.TicketViewModel
 import com.example.w1d3_rxjavademo.viewmodel.TicketViewModelFactory
-import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -26,37 +23,23 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: TicketViewModelFactory
-  //  @Inject
     lateinit var viewModel: TicketViewModel
 
     lateinit var mAdapter: TicketsAdapter
-    //val injection = Injection()
     private val from = "DEL"
     private val to = "HYD"
-    // CompositeDisposable is used to dispose the subscriptions in onDestroy() method.
-    private val disposable = CompositeDisposable()
     private var ticketsList: MutableList<Ticket> = mutableListOf()
     lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.title = "$from > $to"
 
-       (application as TicketApplication).appComponent.inject(this)
-      // TicketApplication.component.inject(this)
-
-      viewModel = viewModelFactory.create(TicketViewModel::class.java)
-
-
-        /*viewModel = ViewModelProvider(
-            this,
-            TicketViewModelFactory(injection.provideUserRepo())
-        ).get(TicketViewModel::class.java)*/
+        (application as TicketApplication).appComponent.inject(this)
+        viewModel = viewModelFactory.create(TicketViewModel::class.java)
 
         viewModel.stateLiveData.observe(this, Observer { appState ->
             when (appState) {
@@ -73,7 +56,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayTickets(ticketsList: MutableList<Ticket>) {
-        // set recycler to eliminate flicker
 
         mAdapter.updateTickets(ticketsList)
         for (ticket in ticketsList) {
