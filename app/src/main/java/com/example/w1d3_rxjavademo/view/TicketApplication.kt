@@ -14,18 +14,16 @@ class TicketApplication:Application() {
     }
 
     open fun initializeComponent(): AppComponent {
-        return
-        DaggerAppComponent.builder()
+        return DaggerAppComponent.builder()
             .applicationModule(ApplicationModule(this))
-            .repositoryModule(RepositoryModule())
-            .restModule(RestModule())
             .viewModelModule(ViewModelModule())
+            .restModule(RestModule())
+            .repositoryModule(RepositoryModule())
             .build()
 
     }
 
-/*
-    override fun onCreate() {
+/*    override fun onCreate() {
         super.onCreate()
         //todo init dagger graph
         component =  DaggerAppComponent.builder()
@@ -37,12 +35,7 @@ class TicketApplication:Application() {
     }
     companion object {
         lateinit var component: TicketApplication
-    }
-
-*/
-
-
-
+    }*/
 
 
 }

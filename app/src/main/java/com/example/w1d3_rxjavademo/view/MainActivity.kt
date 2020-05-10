@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: TicketViewModelFactory
-    @Inject
+  //  @Inject
     lateinit var viewModel: TicketViewModel
 
     lateinit var mAdapter: TicketsAdapter
@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.title = "$from > $to"
 
-        (application as TicketApplication).appComponent.inject(this)
-      //  TicketApplication.component.inject(this)
+       (application as TicketApplication).appComponent.inject(this)
+      // TicketApplication.component.inject(this)
 
       viewModel = viewModelFactory.create(TicketViewModel::class.java)
 

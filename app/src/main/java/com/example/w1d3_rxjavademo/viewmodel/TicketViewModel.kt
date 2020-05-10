@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.w1d3_rxjavademo.network.model.Price
 import com.example.w1d3_rxjavademo.network.model.Ticket
 import com.example.w1d3_rxjavademo.network.model.TicketRepository
+import com.example.w1d3_rxjavademo.network.model.TicketRepositoryImpl
 import com.jakewharton.rxbinding.support.v7.widget.RxSearchView
 import io.reactivex.disposables.CompositeDisposable
 import rx.Notification
@@ -14,7 +15,7 @@ import java.net.UnknownHostException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class TicketViewModel @Inject constructor(private val ticketRepository: TicketRepository) : ViewModel() {
+class TicketViewModel @Inject constructor(private val ticketRepository: TicketRepositoryImpl) : ViewModel() {
 
     private val disposable = CompositeDisposable()
     private val stateMutableLiveData = MutableLiveData<AppState>()
